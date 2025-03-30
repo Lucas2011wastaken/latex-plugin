@@ -2,7 +2,7 @@
 /*
 Plugin Name: LaTeX to SVG (Inline Only)
 Description: 精确转换行内LaTeX公式为SVG，支持智能错误提示
-Version: 2.2.2
+Version: 2.2.3
 Author: Lucas2011
 */
 
@@ -123,8 +123,28 @@ function latex2svg_options_page() {
 }
 
 function latex2svg_process_content($content) {
+    // 暂存<code>块并替换为占位符
+    $code_blocks = array();
+    $pattern = '/<code[^>]*>.*?<\/code>/s';
+    $content = preg_replace_callback(
+        $pattern,
+        function ($matches) use (&$code_blocks) {
+            $code_blocks[] = $matches[0];
+            return '<!--CODE_BLOCK_' . (count($code_blocks) - 1) . '-->';
+        },
+        $content
+    );
     // 增强正则匹配：支持 $$...$$ 和 $$$...$$$
     $content = preg_replace_callback('/(\${2,3})(.*?)\1/s', 'latex2svg_replace_inline', $content);
+    // 恢复<code>
+    $content = preg_replace_callback(
+        '/<!--CODE_BLOCK_(\d+)-->/',
+        function ($placeholder_match) use ($code_blocks) {
+            $index = intval($placeholder_match[1]);
+            return isset($code_blocks[$index]) ? $code_blocks[$index] : '';
+        },
+        $content
+    );
     return $content;
 }
 
