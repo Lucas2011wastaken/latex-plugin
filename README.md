@@ -25,20 +25,4 @@ To avoid conflicts with KaTeX, the plugin only resolve `$$abc$$` as inline.
 
 For instance, `$$\LaTeX$$` will pass `\LaTeX` to the API, and `$$$\lim\limits_{x\rightarrow 0}f(x)$$$` will pass `$\lim\limits_{x\rightarrow 0}f(x)$` to the API.
 
-Since the API is sensitive to `$$` use, plz do standardize the use of `$`. e.g. If you type `$$$\LaTeX$$$` the server will report an error like this: <span class="latex-error">公式错误：LaTeXCompileFault：! You can&#8217;t use `\spacefactor&#8217; in math mode.</span>
-
-<style>
-        .latex-svg {
-            margin: 0 0.2em;
-            transform: translateY(-0.1em);
-        }
-        .latex-error {
-            color: #dc3545;
-            background: #f8d7da;
-            border: 1px solid #f5c6cb;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            font-family: monospace;
-            font-size: 0.9em;
-        }
-    </style>
+Since the API is sensitive to `$$` use, plz do standardize the use of `$`. e.g. If you type `$$$\LaTeX$$$` the server will report an error like this: `公式错误：LaTeXCompileFault：! You can&#8217;t use '\spacefactor&#8217; in math mode.'`
