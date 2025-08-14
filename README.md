@@ -26,3 +26,8 @@ To avoid conflicts with KaTeX, the plugin only resolve `$$abc$$` as inline.
 For instance, `$$\LaTeX$$` will pass `\LaTeX` to the API, and `$$$\lim\limits_{x\rightarrow 0}f(x)$$$` will pass `$\lim\limits_{x\rightarrow 0}f(x)$` to the API.
 
 Since the API is sensitive to `$$` use, plz do standardize the use of `$`. e.g. If you type `$$$\LaTeX$$$` the server will report an error like this: `公式错误：LaTeXCompileFault：! You can&#8217;t use '\spacefactor&#8217; in math mode.'`
+
+# To Do
+
+- [ ] Rewrite the scale logic, which currently based on complex calculations, to simply reuse the size provided by server side.
+- [ ] Update this cringe `README.md`
